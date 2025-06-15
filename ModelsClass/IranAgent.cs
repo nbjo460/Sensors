@@ -1,6 +1,7 @@
-﻿using System.Linq;
+﻿using Sensors.BaseModels;
+using System.Linq;
 
-namespace Sensors.Models
+namespace Sensors.BaseModels
 {
     internal class IranAgent
     {

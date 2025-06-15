@@ -45,8 +45,9 @@
   <ItemGroup>
     <Compile Include="Exception\CustomException.cs" />
     <Compile Include="Factory\*.cs" />
-    <Compile Include="Models\IranAgent.cs" />
-    <Compile Include="Models\Sensor.cs" />
+    <Compile Include="ModelsClass\IranAgent.cs" />
+    <Compile Include="ModelsClass\Sensors\PulseSensor.cs" />
+    <Compile Include="ModelsClass\Sensors\*.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
