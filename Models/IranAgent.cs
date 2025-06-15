@@ -16,6 +16,16 @@ namespace Sensors.Models
         BaseSensor[] AttachedSensors;
         bool[] EnabledByLocation;
         string[] RequierdTypesOfSensors;
+        public bool IsHiding { 
+            get 
+            {
+                foreach (bool location in EnabledByLocation)
+                {
+                    if (!location) return true;
+                }
+                return false;
+            }
+            } 
 
         public IranAgent(string _rank,string[] _requierdTypesOfSensors)
         {
@@ -23,7 +33,6 @@ namespace Sensors.Models
             SetCapcityAndRank(_rank);
             InitialyzeParameters();
             RequierdTypesOfSensors = _requierdTypesOfSensors;
-
         }
         private void SetCapcityAndRank(string _rank)
         {
@@ -57,7 +66,6 @@ namespace Sensors.Models
             }
             
         }
-
         public void AttachSensor(BaseSensor _sensor, int _location = -1)
         {
             //Game With Location
@@ -78,11 +86,12 @@ namespace Sensors.Models
                     if (!EnabledByLocation[i])
                     {
                         AttachedSensors[i] = _sensor;
-                        EnabledByLocation[i] = true ? TypesOfRank.Contains(_sensor.Name) : false;
+                        EnabledByLocation[i] = true ? RequierdTypesOfSensors.Contains(_sensor.Name) : false;
                     }
                 }
             }
         }
+
 
     }
 }

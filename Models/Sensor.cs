@@ -12,7 +12,7 @@ namespace Sensors.Models
             {"Audio", "Thermal", "Pulse", "Motion",
             "Magnetic", "Signal", "Light" };
 
-        protected virtual int CountToActivate { get; }
+        protected virtual int RemainActivate { get; }
         public virtual string Name { get; set; }
 
     }
