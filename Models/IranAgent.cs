@@ -87,11 +87,20 @@ namespace Sensors.Models
                     {
                         AttachedSensors[i] = _sensor;
                         EnabledByLocation[i] = true ? RequierdTypesOfSensors.Contains(_sensor.Name) : false;
+                        break;
                     }
                 }
             }
         }
-
+        public int CountMatchingSensor()
+        {
+            int count = 0;
+            foreach (bool matching in EnabledByLocation)
+            {
+                if (matching) count++;
+            }
+            return count;
+        }
 
     }
 }
