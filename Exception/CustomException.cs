@@ -15,8 +15,32 @@ public class LocationNotInRange : Exception
         Location = _location;
         MaxLocation = _max_location;
     }
+}
+public class RankDoesNotExist : Exception
+{
+    static string[] TypesOfRanks;
+    string RanksSpllited;
+    string Rank;
+    private static string JoinsRanksToString(string[] _typesOsRanks)
+    {
+        string joined = "";
+        for (int i = 0; i < TypesOfRanks.Length; i++)
+        {
+            joined = joined + " " + TypesOfRanks[i];
+        }
+        joined.TrimEnd();
+        return joined;
 
-    
+    }
+
+    public RankDoesNotExist(string[] _typesOfRanks, string _rank) : 
+        base($"You wrote Rank: {_rank}.\n" +
+        $"You can write only one of them:\n" +
+        $"{JoinsRanksToString(_typesOfRanks)}")
+    {
+        TypesOfRanks = _typesOfRanks;
+        Rank = _rank;
+    }
 }
 
 

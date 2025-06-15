@@ -62,10 +62,11 @@ namespace Sensors.Models
             //Game With Location
             if (_location >= 0)
             {
-                if(_location > CapacityOfSensors)
-                Console.WriteLine("Location Dosen't Exist");
-                else 
-                AttachedSensors[_location - 1] = _sensor;
+                if (_location > CapacityOfSensors)
+                    throw new LocationNotInRange(_location, CapacityOfSensors -1);
+
+                else
+                    AttachedSensors[_location - 1] = _sensor;
                 EnabledByLocation[_location - 1] = true ? RequierdTypesOfSensors.Contains(_sensor.Name) : false;
             }
             //Game without Location
