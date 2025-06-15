@@ -8,14 +8,18 @@ namespace Sensors.Models
 {
     internal class IranAgent
     {
-        private static string[] TypesOfRank = {"Foot Soldier" , "Squad Leader" , "Senior Commander", "Organaization" };
+        public static string[] TypesOfRank { get; } = { "Foot Soldier", "Squad Leader", "Senior Commander", "Organaization" };
 
         public string Rank { get; private set;}
         public int CapacityOfSensors { get; private set; }
         
         BaseSensor[] AttachedSensors;
         bool[] EnabledByLocation;
-        string[] RequierdTypesOfSensors;
+        private string[] requierdTypesOfSensors = null;
+        public string[] RequierdTypesOfSensors { get { return requierdTypesOfSensors; } 
+            set { if (requierdTypesOfSensors == null) requierdTypesOfSensors = value;
+            }
+        }
         public bool IsHiding { 
             get 
             {
@@ -27,12 +31,10 @@ namespace Sensors.Models
             }
             } 
 
-        public IranAgent(string _rank,string[] _requierdTypesOfSensors)
+        public IranAgent(string _rank)
         {
-
             SetCapcityAndRank(_rank);
             InitialyzeParameters();
-            RequierdTypesOfSensors = _requierdTypesOfSensors;
         }
         private void SetCapcityAndRank(string _rank)
         {
