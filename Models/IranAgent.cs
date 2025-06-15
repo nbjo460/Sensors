@@ -27,7 +27,8 @@ namespace Sensors.Models
         }
         private void SetCapcityAndRank(string _rank)
         {
-            if (!TypesOfRank.Contains(_rank)) return;
+            if (!TypesOfRank.Contains(_rank)) throw new RankDoesNotExist(TypesOfRank, _rank);
+            
             Rank = _rank;
 
             switch (_rank)
