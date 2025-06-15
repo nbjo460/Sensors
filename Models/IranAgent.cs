@@ -11,9 +11,9 @@ namespace Sensors.Models
         private static string[] TypesOfRank = {"Foot Soldier" , "Squad Leader" , "Senior Commander", "Organaization" };
 
         public string Rank { get; private set;}
-        int CapacityOfSensors;
+        public int CapacityOfSensors { get; private set; }
         
-        BaseSensor[] AttacedSensors;
+        BaseSensor[] AttachedSensors;
         bool[] EnabledByLocation;
         string[] RequierdTypesOfSensors;
 
@@ -48,7 +48,7 @@ namespace Sensors.Models
         }
         private void InitialyzeParameters()
         {
-            AttacedSensors = new BaseSensor[CapacityOfSensors];
+            AttachedSensors = new BaseSensor[CapacityOfSensors];
             EnabledByLocation = new bool[CapacityOfSensors];
             for (int i = 0; i < CapacityOfSensors; i++)
             {
@@ -56,5 +56,31 @@ namespace Sensors.Models
             }
             
         }
+
+        public void AttachSensor(BaseSensor _sensor, int _location = -1)
+        {
+            //Game With Location
+            if (_location >= 0)
+            {
+                if(_location > CapacityOfSensors)
+                Console.WriteLine("Location Dosen't Exist");
+                else 
+                AttachedSensors[_location - 1] = _sensor;
+                EnabledByLocation[_location - 1] = true ? RequierdTypesOfSensors.Contains(_sensor.Name) : false;
+            }
+            //Game without Location
+            else
+            {
+                for (int i = 0; i < CapacityOfSensors; i++)
+                {
+                    if (!EnabledByLocation[i])
+                    {
+                        AttachedSensors[i] = _sensor;
+                        EnabledByLocation[i] = true ? TypesOfRank.Contains(_sensor.Name) : false;
+                    }
+                }
+            }
+        }
+
     }
 }
