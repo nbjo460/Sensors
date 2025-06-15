@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sensors.Models
+﻿namespace Sensors.Models
 {
     internal abstract class BaseSensor
     {
@@ -15,7 +9,7 @@ namespace Sensors.Models
         protected abstract int RemainActivate { get; }
         public abstract string Name { get; set; }
 
-        public virtual IranAgent AgentAttached {private get; set; }
+        public virtual IranAgent AgentAttached { private get; set; }
         public virtual int Activate()
         {
             AgentAttached.AttachSensor(this);

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 
 namespace Sensors.Models
 {
@@ -10,18 +6,23 @@ namespace Sensors.Models
     {
         public static string[] TypesOfRank { get; } = { "Foot Soldier", "Squad Leader", "Senior Commander", "Organaization" };
 
-        public string Rank { get; private set;}
+        public string Rank { get; private set; }
         public int CapacityOfSensors { get; private set; }
-        
+
         BaseSensor[] AttachedSensors;
         bool[] EnabledByLocation;
         private string[] requierdTypesOfSensors = null;
-        public string[] RequierdTypesOfSensors { get { return requierdTypesOfSensors; } 
-            set { if (requierdTypesOfSensors == null) requierdTypesOfSensors = value;
+        public string[] RequierdTypesOfSensors
+        {
+            get { return requierdTypesOfSensors; }
+            set
+            {
+                if (requierdTypesOfSensors == null) requierdTypesOfSensors = value;
             }
         }
-        public bool IsHiding { 
-            get 
+        public bool IsHiding
+        {
+            get
             {
                 foreach (bool location in EnabledByLocation)
                 {
@@ -29,7 +30,7 @@ namespace Sensors.Models
                 }
                 return false;
             }
-            } 
+        }
 
         public IranAgent(string _rank)
         {
@@ -39,7 +40,7 @@ namespace Sensors.Models
         private void SetCapcityAndRank(string _rank)
         {
             if (!TypesOfRank.Contains(_rank)) throw new RankDoesNotExist(TypesOfRank, _rank);
-            
+
             Rank = _rank;
 
             switch (_rank)
@@ -66,7 +67,7 @@ namespace Sensors.Models
             {
                 EnabledByLocation[i] = false;
             }
-            
+
         }
         public void AttachSensor(BaseSensor _sensor, int _location = -1)
         {
@@ -74,7 +75,7 @@ namespace Sensors.Models
             if (_location >= 0)
             {
                 if (_location > CapacityOfSensors)
-                    throw new LocationNotInRange(_location, CapacityOfSensors -1);
+                    throw new LocationNotInRange(_location, CapacityOfSensors - 1);
 
                 else
                     AttachedSensors[_location - 1] = _sensor;
