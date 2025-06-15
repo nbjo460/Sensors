@@ -6,9 +6,14 @@ using System.Threading.Tasks;
 
 namespace Sensors.Models
 {
-    internal class Sensor
+    internal abstract class     BaseSensor
     {
-        protected int CountToActivate;
-        protected string Name;
+        public static string[] TypesOfSensors { get; } =
+            {"Audio", "Thermal", "Pulse", "Motion",
+            "Magnetic", "Signal", "Light" };
+
+        protected virtual int CountToActivate { get; }
+        protected virtual string Name { get; set; }
+
     }
 }
