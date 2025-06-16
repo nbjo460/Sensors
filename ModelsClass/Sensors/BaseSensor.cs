@@ -19,13 +19,13 @@ namespace Sensors.BaseModels
         public virtual int Activate(IranAgent agent)
         {
             AgentAttached = agent;
-            AgentAttached.AttachSensor(this);
+            bool attached = AgentAttached.AttachSensor(this);
+            SpecialPower();
 
             int count = AgentAttached.CountMatchingSensor();
             int remained = AgentAttached.CapacityOfSensors - count;
 
             AgentAttached.MatchingSensorString(count);
-            SpecialPower();
             return remained;
         }
         private void SpecialPower()

@@ -8,9 +8,13 @@ namespace Sensors.BaseModels.Sensors
 {
     internal class PulseSensor : BaseSensor
     {
-        public PulseSensor() : base()
+        private static int id = 0;
+        private int uniqueId;
+        public PulseSensor()
         {
             PulseList.Add(this);
+            id += 0;
+            uniqueId = id;
         }
 
         private static List<PulseSensor> PulseList = new List<PulseSensor>();
@@ -35,9 +39,19 @@ namespace Sensors.BaseModels.Sensors
 
         private static void IncreaseCount()
         {
-            foreach (PulseSensor pulse in PulseList)
+            try
             {
-                pulse.ActivateCount++;
+                foreach (PulseSensor pulse in PulseList)
+                {
+                    if (pulse != null) pulse.ActivateCount++;
+                }
+            }
+            catch
+            {
+                foreach (PulseSensor pulse in PulseList)
+                {
+                    if (pulse != null) pulse.ActivateCount++;
+                }
             }
         }
         public static void SpecialPower()

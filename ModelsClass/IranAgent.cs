@@ -11,6 +11,11 @@ namespace Sensors.BaseModels
         public int MatchingSensor { get; private set; } = 0;
         public string Rank { get; private set; }
         public int CapacityOfSensors { get; private set; }
+        
+        private int counterTurns = 0;
+        private int MaxCounterAttackByRank = 0;
+        private int SensorsRemove = 0;
+        public const int MaxCounterAttack = 10;
 
         BaseSensor[] AttachedSensors;
         bool[] EnabledByLocation;
@@ -50,15 +55,24 @@ namespace Sensors.BaseModels
             {
                 case "Foot Soldier":
                     CapacityOfSensors = 2;
+                    MaxCounterAttackByRank = 0;
+                    SensorsRemove = 0;
                     break;
                 case "Squad Leader":
                     CapacityOfSensors = 4;
+                    MaxCounterAttackByRank = 3;
+                    SensorsRemove = 1;
+
                     break;
                 case "Senior Commander":
                     CapacityOfSensors = 6;
+                    MaxCounterAttackByRank = 3;
+                    SensorsRemove = 2;
                     break;
                 case "Organaization":
                     CapacityOfSensors = 8;
+                    MaxCounterAttackByRank = 3;
+                    SensorsRemove = 1;
                     break;
             }
         }
@@ -72,7 +86,7 @@ namespace Sensors.BaseModels
             }
 
         }
-        public void AttachSensor(BaseSensor _sensor, int _location = -1)
+        public bool AttachSensor(BaseSensor _sensor, int _location = -1)
         {
             //Game With Location
             if (_location >= 0)
@@ -83,6 +97,7 @@ namespace Sensors.BaseModels
                 else
                     AttachedSensors[_location - 1] = _sensor;
                 EnabledByLocation[_location - 1] = true ? RequierdTypesOfSensors[_location - 1] == _sensor.Name : false;
+                return EnabledByLocation[_location - 1];
             }
             //Game without Location
             else
@@ -93,13 +108,12 @@ namespace Sensors.BaseModels
                     {
                         AttachedSensors[i] = _sensor;
                         EnabledByLocation[i] = true;
-
                         Console.WriteLine(string.Join(", ",RequierdTypesOfSensors));
-
-                        break;
+                        return true;
                     }
                 }
             }
+            return false;
         }
         public int CountMatchingSensor()
         {
@@ -127,10 +141,21 @@ namespace Sensors.BaseModels
                 {
                     AttachedSensors[i] = null;
                     EnabledByLocation[i] = false;
-                    Console.WriteLine(_sensor + "Was DELETED");
+                    Console.WriteLine(_sensor.Name + " Was DELETED");
                     break;
                 }
             }
         }
+        public void SpecialPower()
+        {
+            if (counterAttack == 10)
+            {
+                for (int i = 0; i < CapacityOfSensors; i++)
+                    AttachedSensors[i] = null;
+            }
+        }
+
+
+
     }
 }
