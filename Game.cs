@@ -95,7 +95,10 @@ namespace Sensors.Exception
                     sensor = FactorySensor.CreateSensor(type);
                     remained = sensor.Activate(agent);
 
-                    Console.WriteLine(agent.MatchingSensorString(agent.CountMatchingSensor()));
+                    int countOfSuccess = agent.CountMatchingSensor();
+                    string results = agent.MatchingSensorString(countOfSuccess);
+
+                    Console.WriteLine(results);
 
                     
                 }

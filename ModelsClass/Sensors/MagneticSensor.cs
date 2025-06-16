@@ -12,7 +12,7 @@ namespace Sensors.BaseModels.Sensors
         public static void SpecialPower(IranAgent agent, string _name)
         {
             if (_name == "Magnetic Sensor")
-            agent.SpecialPowerPossibility = -1;
+            agent.SpecialPowerPossibility = -2; 
         }
     }
 }

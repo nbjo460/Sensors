@@ -109,7 +109,6 @@ namespace Sensors.BaseModels
                     {
                         AttachedSensors[i] = _sensor;
                         EnabledByLocation[i] = true;
-                        Console.WriteLine(string.Join(", ",RequierdTypesOfSensors));
                         return true;
                     }
                 }
@@ -166,11 +165,12 @@ namespace Sensors.BaseModels
         {
 
             counterTurns++;
-            if (SpecialPowerPossibility > 0)
+            if (SpecialPowerPossibility >= 0)
             {
                 if (counterTurns % 10 == 0)
                 {
                     DeleteSensorsByNum(CapacityOfSensors);
+                    Console.WriteLine("Each 10 turns. Your's all Sensors delete!\nLike Now LOLLL");
                 }
                 else if (SensorsRemove == -1)
                 {
@@ -178,8 +178,9 @@ namespace Sensors.BaseModels
                 }
                 else if (counterTurns % MaxCounterAttackByRank == 0)
                 {
-                    Console.WriteLine(MaxCounterAttackByRank);
                     DeleteSensorsByNum(SensorsRemove);
+                    Console.WriteLine($"Each {MaxCounterAttackByRank} turns. {SensorsRemove} Sensors are delete!\nLike Now LOLLL");
+
                 }
             }
             else
