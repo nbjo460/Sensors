@@ -1,5 +1,6 @@
 ﻿using Sensors.BaseModels;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace Sensors.BaseModels
 {
@@ -105,6 +106,9 @@ namespace Sensors.BaseModels
             }
             return count;
         }
-
+        public override string ToString()
+        {
+            return $"The Rank is: {Rank}. You succssed {CountMatchingSensor()} / {CapacityOfSensors}";
+        }
     }
 }
