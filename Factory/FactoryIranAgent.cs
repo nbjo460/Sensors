@@ -21,7 +21,7 @@ namespace Sensors.Factory
                 int sensorType = rnd.Next(0, BaseSensor.TypesOfSensors.Length);
                 //sensorType = 4;
                 TypesOfSensors[i] = BaseSensor.TypesOfSensors[sensorType];
-                Console.WriteLine(TypesOfSensors[i]);
+                //Console.WriteLine(TypesOfSensors[i]);
             }
 
             agent.RequierdTypesOfSensors = TypesOfSensors;

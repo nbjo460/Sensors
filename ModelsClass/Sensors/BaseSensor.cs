@@ -33,11 +33,11 @@ namespace Sensors.BaseModels
             PulseSensor.SpecialPower();
             ThermalSensor.SpecialPower(_agent, _attached, Name);
             MagneticSensor.SpecialPower(_agent, _attached, Name);
-
+            MotionSensor.SpecialPower();
             SignalSensor.SpecialPower(_agent, _attached, Name);
             LightSensor.SpecialPower(_agent, _attached, Name);
 
-            _agent.SpecialPower();
+            _agent.SpecialPower(_attached);
 
         }
         public override string ToString()

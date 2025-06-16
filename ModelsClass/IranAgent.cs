@@ -165,34 +165,35 @@ namespace Sensors.BaseModels
                 }
             }
         }
-        public void SpecialPower()
+        public void SpecialPower(bool _attached)
         {
-
-            counterTurns++;
-            if (SpecialPowerPossibility >= 0)
+            if (!_attached)
             {
-                if (counterTurns % 10 == 0)
+                counterTurns++;
+                if (SpecialPowerPossibility >= 0)
                 {
-                    DeleteSensorsByNum(CapacityOfSensors);
-                    Console.WriteLine("Each 10 turns. Your's all Sensors delete!\nLike Now LOLLL");
-                }
-                else if (SensorsRemove == -1)
-                {
-                    return;
-                }
-                else if (counterTurns % MaxCounterAttackByRank == 0)
-                {
-                    DeleteSensorsByNum(SensorsRemove);
-                    Console.WriteLine($"Each {MaxCounterAttackByRank} turns. {SensorsRemove} Sensors are delete!\nLike Now LOLLL");
+                    if (counterTurns % 10 == 0)
+                    {
+                        DeleteSensorsByNum(CapacityOfSensors);
+                        Console.WriteLine("Each 10 turns. Your's all Sensors delete!\nLike Now LOLLL");
+                    }
+                    else if (SensorsRemove == -1)
+                    {
+                        return;
+                    }
+                    else if (counterTurns % MaxCounterAttackByRank == 0)
+                    {
+                        DeleteSensorsByNum(SensorsRemove);
+                        Console.WriteLine($"Each {MaxCounterAttackByRank} turns. {SensorsRemove} Sensors are delete!\nLike Now LOLLL");
 
+                    }
+                }
+                else
+                {
+                    if (counterTurns % 10 == 0 || counterTurns % MaxCounterAttackByRank == 0)
+                        SpecialPowerPossibility++;
                 }
             }
-            else
-            {
-                if(counterTurns % 10 == 0 || counterTurns % MaxCounterAttackByRank == 0)
-                    SpecialPowerPossibility++;
-            }
-
         }
 
 
