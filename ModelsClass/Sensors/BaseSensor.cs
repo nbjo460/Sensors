@@ -28,11 +28,12 @@ namespace Sensors.BaseModels
             AgentAttached.MatchingSensorString(count);
             return remained;
         }
-        private void SpecialPower(IranAgent agent, bool _attached)
+        private void SpecialPower(IranAgent _agent, bool _attached)
         {
             PulseSensor.SpecialPower();
-            agent.SpecialPower();
-            ThermalSensor.SpecialPower(agent, _attached);
+            _agent.SpecialPower();
+            ThermalSensor.SpecialPower(_agent, _attached, Name);
+            MagneticSensor.SpecialPower(_agent, Name);
 
 
         }

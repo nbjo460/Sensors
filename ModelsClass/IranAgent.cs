@@ -11,7 +11,8 @@ namespace Sensors.BaseModels
         public int MatchingSensor { get; private set; } = 0;
         public string Rank { get; private set; }
         public int CapacityOfSensors { get; private set; }
-        
+
+        public int SpecialPowerPossibility = 0;
         private int counterTurns = 0;
         private int MaxCounterAttackByRank = 0;
         private int SensorsRemove = 0;
@@ -163,21 +164,30 @@ namespace Sensors.BaseModels
         }
         public void SpecialPower()
         {
-            counterTurns++;
 
-            if (counterTurns % 10 == 0)
+            counterTurns++;
+            if (SpecialPowerPossibility > 0)
             {
-                DeleteSensorsByNum(CapacityOfSensors);
+                if (counterTurns % 10 == 0)
+                {
+                    DeleteSensorsByNum(CapacityOfSensors);
+                }
+                else if (SensorsRemove == -1)
+                {
+                    return;
+                }
+                else if (counterTurns % MaxCounterAttackByRank == 0)
+                {
+                    Console.WriteLine(MaxCounterAttackByRank);
+                    DeleteSensorsByNum(SensorsRemove);
+                }
             }
-            else if(SensorsRemove == -1)
+            else
             {
-                return;
+                if(counterTurns % 10 == 0 || counterTurns % MaxCounterAttackByRank == 0)
+                    SpecialPowerPossibility++;
             }
-            else if (counterTurns % MaxCounterAttackByRank == 0)
-            {
-                Console.WriteLine(MaxCounterAttackByRank);
-                DeleteSensorsByNum(SensorsRemove);
-            }
+
         }
 
 
