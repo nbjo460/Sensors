@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Sensors.Exception;
 
 namespace Sensors
 {
@@ -10,6 +6,7 @@ namespace Sensors
     {
         static void Main(string[] args)
         {
+            new Game().StartGame();
         }
     }
 }
