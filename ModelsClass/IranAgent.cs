@@ -15,7 +15,7 @@ namespace Sensors.BaseModels
         public int CapacityOfSensors { get; private set; }
 
         public int SpecialPowerPossibility = 0;
-        private int counterTurns = 0;
+        public int counterTurns { get; private set; } = 0;
         private int MaxCounterAttackByRank = 0;
         private int SensorsRemove = 0;
         public const int MaxCounterAttack = 10;
@@ -50,6 +50,14 @@ namespace Sensors.BaseModels
             SetCapcityAndRank(_rank);
             InitialyzeParameters();
         }
+        public IranAgent(int _id ,string _rank, int _turns)
+        {
+            ID = _id;
+            SetCapcityAndRank(_rank);
+            InitialyzeParameters();
+            counterTurns = _turns;
+        }
+
         private void SetCapcityAndRank(string _rank)
         {
             if (!TypesOfRank.Contains(_rank)) throw new RankDoesNotExist(TypesOfRank, _rank);
