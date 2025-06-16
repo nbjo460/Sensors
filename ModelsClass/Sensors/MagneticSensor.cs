@@ -9,9 +9,9 @@ namespace Sensors.BaseModels.Sensors
     internal class MagneticSensor : BaseSensor
     {
         public override string Name { get; protected set; } = "Magnetic Sensor";
-        public static void SpecialPower(IranAgent agent, string _name)
+        public static void SpecialPower(IranAgent agent, bool _attached, string _name)
         {
-            if (_name == "Magnetic Sensor")
+            if (_attached && _name == "Magnetic Sensor")
             agent.SpecialPowerPossibility = -2; 
         }
     }

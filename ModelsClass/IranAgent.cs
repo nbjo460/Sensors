@@ -7,6 +7,8 @@ namespace Sensors.BaseModels
 {
     internal class IranAgent
     {
+        private static int id = 0;
+        public int ID { get; private set; }
         public static string[] TypesOfRank { get; } = { "Foot Soldier", "Squad Leader", "Senior Commander", "Organaization" };
         public int MatchingSensor { get; private set; } = 0;
         public string Rank { get; private set; }
@@ -43,6 +45,8 @@ namespace Sensors.BaseModels
 
         public IranAgent(string _rank)
         {
+            id += 1;
+            ID = id;
             SetCapcityAndRank(_rank);
             InitialyzeParameters();
         }

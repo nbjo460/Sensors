@@ -31,10 +31,13 @@ namespace Sensors.BaseModels
         private void SpecialPower(IranAgent _agent, bool _attached)
         {
             PulseSensor.SpecialPower();
-            _agent.SpecialPower();
             ThermalSensor.SpecialPower(_agent, _attached, Name);
-            MagneticSensor.SpecialPower(_agent, Name);
+            MagneticSensor.SpecialPower(_agent, _attached, Name);
 
+            SignalSensor.SpecialPower(_agent, _attached, Name);
+            LightSensor.SpecialPower(_agent, _attached, Name);
+
+            _agent.SpecialPower();
 
         }
         public override string ToString()
