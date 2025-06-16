@@ -1,4 +1,5 @@
 ﻿using Sensors.BaseModels;
+using System;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -7,7 +8,7 @@ namespace Sensors.BaseModels
     internal class IranAgent
     {
         public static string[] TypesOfRank { get; } = { "Foot Soldier", "Squad Leader", "Senior Commander", "Organaization" };
-
+        public int MatchingSensor { get; private set; } = 0;
         public string Rank { get; private set; }
         public int CapacityOfSensors { get; private set; }
 
@@ -81,17 +82,20 @@ namespace Sensors.BaseModels
 
                 else
                     AttachedSensors[_location - 1] = _sensor;
-                EnabledByLocation[_location - 1] = true ? RequierdTypesOfSensors.Contains(_sensor.Name) : false;
+                EnabledByLocation[_location - 1] = true ? RequierdTypesOfSensors[_location - 1] == _sensor.Name : false;
             }
             //Game without Location
             else
             {
                 for (int i = 0; i < CapacityOfSensors; i++)
                 {
-                    if (!EnabledByLocation[i])
+                    if (!EnabledByLocation[i] && RequierdTypesOfSensors[i] == _sensor.Name)
                     {
                         AttachedSensors[i] = _sensor;
-                        EnabledByLocation[i] = true ? RequierdTypesOfSensors.Contains(_sensor.Name) : false;
+                        EnabledByLocation[i] = true;
+
+                        Console.WriteLine(string.Join(", ",RequierdTypesOfSensors));
+
                         break;
                     }
                 }
@@ -104,11 +108,16 @@ namespace Sensors.BaseModels
             {
                 if (matching) count++;
             }
+            MatchingSensor = count;
             return count;
+        }
+        public string MatchingSensorString(int count)
+        {
+            return $"You succssed {count} / {CapacityOfSensors}";
         }
         public override string ToString()
         {
-            return $"The Rank is: {Rank}. You succssed {CountMatchingSensor()} / {CapacityOfSensors}";
+            return $"The Rank is: {Rank}. {MatchingSensorString(CountMatchingSensor())}";
         }
     }
 }

@@ -9,16 +9,22 @@ namespace Sensors.BaseModels
     internal abstract class BaseSensor
     {
         public static string[] TypesOfSensors { get; } =
-            {"Audio", "Thermal", "Pulse", "Motion",
-            "Magnetic", "Signal", "Light" };
+            {"Audio Sensor", "Thermal Sensor", "Pulse Sensor", "Motion Sensor",
+            "Magnetic Sensor", "Signal Sensor", "Light Sensor" };
 
         protected virtual int RemainedToActivate { get; }
         public virtual string Name { get; protected set; }
         public virtual IranAgent AgentAttached { private get; set; }
-        public virtual int Activate()
+        public virtual int Activate(IranAgent agent)
         {
+            AgentAttached = agent;
             AgentAttached.AttachSensor(this);
-            return AgentAttached.CountMatchingSensor();
+
+            int count = AgentAttached.CountMatchingSensor();
+            int remained = AgentAttached.CapacityOfSensors - count;
+
+            AgentAttached.MatchingSensorString(count);
+            return remained;
         }
         public override string ToString()
         {

@@ -18,14 +18,8 @@ public class RankDoesNotExist : Exception
     public string Rank;
     private static string JoinsRanksToString(string[] _typesOsRanks)
     {
-        string joined = "";
-        for (int i = 0; i < TypesOfRanks.Length; i++)
-        {
-            joined = joined + " " + TypesOfRanks[i];
-        }
-        joined.TrimEnd();
+        string joined = string.Join(" ,", _typesOsRanks);
         return joined;
-
     }
 
     public RankDoesNotExist(string[] _typesOfRanks, string _rank) :
@@ -36,33 +30,36 @@ public class RankDoesNotExist : Exception
         TypesOfRanks = _typesOfRanks;
         Rank = _rank;
     }
-    
-    public class SensorDoesNotExist : Exception
+}
+public class SensorDoesNotExist : Exception
+{
+    public static string[] TypesOfSensors;
+    public string SensorsSpllited;
+    public string Sensor;
+    private static string JoinsSensorsToString(string[] _typesOsSensors)
     {
-        public static string[] TypesOfSensors;
-        public string SensorsSpllited;
-        public string Sensor;
-        private static string JoinsSensorsToString(string[] _typesOsSensors)
-        {
-            string joined = "";
-            for (int i = 0; i < TypesOfSensors.Length; i++)
-            {
-                joined = joined + " " + TypesOfSensors[i];
-            }
-            joined.TrimEnd();
-            return joined;
+        string joined = string.Join(" ,", _typesOsSensors);
+        return joined;
+    }
 
-        }
-
-        public SensorDoesNotExist(string[] _typesOfSensors, string _sensor) :
-            base($"You wrote Sensor: {_sensor}.\n" +
-            $"You can write only one of them:\n" +
-            $"{JoinsSensorsToString(_typesOfSensors)}")
-        {
-            TypesOfSensors = _typesOfSensors;
-            Sensor = _sensor;
-        }
+    public SensorDoesNotExist(string[] _typesOfSensors, string _sensor) :
+        base($"You wrote Sensor: {_sensor}.\n" +
+        $"You can write only one of them:\n" +
+        $"{JoinsSensorsToString(_typesOfSensors)}")
+    {
+        TypesOfSensors = _typesOfSensors;
+        Sensor = _sensor;
     }
 }
+static class PrintException
+{
+    static public void Print(string str)
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine(str);
+        Console.ForegroundColor = ConsoleColor.White;
+    }
+}
+
 
 

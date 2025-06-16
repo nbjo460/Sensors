@@ -9,9 +9,9 @@ using static RankDoesNotExist;
 
 namespace Sensors.Factory
 {
-    internal class FactorySensor
+    internal static class FactorySensor
     {
-        public BaseSensor CreateSensor(string _type)
+        public static BaseSensor CreateSensor(string _type)
         {
 
             //public static string[] TypesOfSensors { get; } =
@@ -22,27 +22,22 @@ namespace Sensors.Factory
             switch (_type) 
             {
                 case "Audio":
-                    sensor = new AudioSensor();
-                    break;
+                    return new AudioSensor();
                 case "Thermal":
-                    sensor = new ThermalSensor();
-                    break;
+                    return new ThermalSensor();
                 case "Pulse":
-                    sensor = new PulseSensor();
-                    break;
+                    return new PulseSensor();
                 case "Motion":
-                    sensor = new MagneticSensor();
-                    break;
+                    return new MotionSensor();
+                case "Magnetic":
+                    return new MagneticSensor();
                 case "Signal":
-                    sensor = new SignalSensor();
-                    break;
+                    return new SignalSensor();
                 case "Light":
-                    sensor = new LightSensor();
-                    break;
+                    return new LightSensor();
                 default:
                     throw new SensorDoesNotExist(BaseSensor.TypesOfSensors ,_type);
             }
-            return sensor;
         }
     }
 }

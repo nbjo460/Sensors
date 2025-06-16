@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sensors.BaseModels.Sensors
 {
-    internal class Motion_Sensor : BaseSensor
+    internal class MotionSensor : BaseSensor
     {
         public override string Name { get; protected set; } = "Motion Sensor";
 

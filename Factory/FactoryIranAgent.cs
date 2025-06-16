@@ -7,17 +7,20 @@ using System.Threading.Tasks;
 
 namespace Sensors.Factory
 {
-    internal class FactoryIranAgent
+    internal static class FactoryIranAgent
     {
-        public IranAgent CreateIranAgent()
+        public static IranAgent CreateIranAgent()
         {
             string rank = IranAgent.TypesOfRank[new Random().Next(0, IranAgent.TypesOfRank.Length)];
             IranAgent agent = new IranAgent(rank);
             string[] TypesOfSensors = new string[agent.CapacityOfSensors];
+            Random rnd = new Random();
             for (int i = 0; i < agent.CapacityOfSensors; i++)
             {
-                TypesOfSensors[i] = BaseSensor.TypesOfSensors[new Random().Next(0, BaseSensor.TypesOfSensors.Length)]; 
+                int sensorType = rnd.Next(0, BaseSensor.TypesOfSensors.Length);
+                TypesOfSensors[i] = BaseSensor.TypesOfSensors[sensorType];
             }
+
             agent.RequierdTypesOfSensors = TypesOfSensors;
             return agent;
         }

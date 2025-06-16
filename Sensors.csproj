@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exception\CustomException.cs" />
+    <Compile Include="Game.cs" />
     <Compile Include="Factory\*.cs" />
     <Compile Include="ModelsClass\IranAgent.cs" />
     <Compile Include="ModelsClass\Sensors\PulseSensor.cs" />
