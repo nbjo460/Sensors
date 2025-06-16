@@ -16,17 +16,53 @@ namespace Sensors.Exception
         {
             Menu();
         }
-        
+
         private void PrintMenu(string str)
         {
-            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.BackgroundColor = ConsoleColor.DarkRed;
+            Console.ForegroundColor = ConsoleColor.Yellow;
 
-            int screenWidth = Console.WindowWidth;
-            int padding = (screenWidth - str.Length)/2;
+            try
+            {
+                int screenWidth = Console.WindowWidth;
 
-            Console.SetCursorPosition(padding, Console.CursorTop);
-            Console.WriteLine(str);
+                // פיצול לשורות במקרה של \n
+                string[] lines = str.Split('\n');
+
+                foreach (string line in lines)
+                {
+                    string trimmedLine = line.Trim();
+
+                    if (trimmedLine.Length <= screenWidth - 2) // מרווח בטיחות
+                    {
+                        int padding = Math.Max((screenWidth - trimmedLine.Length) / 2, 0);
+
+                        try
+                        {
+                            Console.SetCursorPosition(padding, Console.CursorTop);
+                            Console.WriteLine(trimmedLine);
+                        }
+                        catch
+                        {
+                            // אם SetCursorPosition לא עובד, השתמש ברווחים
+                            Console.WriteLine(new string(' ', padding) + trimmedLine);
+                        }
+                    }
+                    else
+                    {
+                        // טקסט ארוך מדי - הדפס בלי מרכוז
+                        Console.WriteLine(trimmedLine);
+                    }
+                }
+            }
+            catch
+            {
+                // אם יש בעיה כלשהי, פשוט הדפס רגיל
+                Console.WriteLine(str);
+            }
+
             Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = ConsoleColor.Black;
         }
         private void ShowMenu()
         {
@@ -40,15 +76,15 @@ namespace Sensors.Exception
                 $"For this, you need to found the right Sensors that he can to carry, and attach them.\n" 
             };
             foreach (string line in menu)
-                Console.WriteLine(line);
-            //PrintMenu(line);
+                //Console.WriteLine(line);
+            PrintMenu(line);
         }
         private void Menu()
         {
             ShowMenu();
             BaseSensor sensor = null;
             Console.WriteLine("Choose one of them:");
-            Console.WriteLine(string.Join(" ,", BaseSensor.TypesOfSensors));
+            Console.WriteLine(string.Join(", ", BaseSensor.TypesOfSensors));
             int remained = 0;
             do
             {

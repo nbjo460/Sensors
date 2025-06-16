@@ -18,8 +18,8 @@ public class RankDoesNotExist : Exception
     public string Rank;
     private static string JoinsRanksToString(string[] _typesOsRanks)
     {
-        string joined = string.Join(" ,", _typesOsRanks);
-        return joined;
+        string joined = string.Join(", ", _typesOsRanks);
+        return joined+".";
     }
 
     public RankDoesNotExist(string[] _typesOfRanks, string _rank) :
@@ -38,8 +38,8 @@ public class SensorDoesNotExist : Exception
     public string Sensor;
     private static string JoinsSensorsToString(string[] _typesOsSensors)
     {
-        string joined = string.Join(" ,", _typesOsSensors);
-        return joined;
+        string joined = string.Join(", ", _typesOsSensors);
+        return joined + ".";
     }
 
     public SensorDoesNotExist(string[] _typesOfSensors, string _sensor) :
