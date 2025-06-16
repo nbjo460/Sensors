@@ -36,6 +36,33 @@ public class RankDoesNotExist : Exception
         TypesOfRanks = _typesOfRanks;
         Rank = _rank;
     }
+    
+    public class SensorDoesNotExist : Exception
+    {
+        public static string[] TypesOfSensors;
+        public string SensorsSpllited;
+        public string Sensor;
+        private static string JoinsSensorsToString(string[] _typesOsSensors)
+        {
+            string joined = "";
+            for (int i = 0; i < TypesOfSensors.Length; i++)
+            {
+                joined = joined + " " + TypesOfSensors[i];
+            }
+            joined.TrimEnd();
+            return joined;
+
+        }
+
+        public SensorDoesNotExist(string[] _typesOfSensors, string _sensor) :
+            base($"You wrote Sensor: {_sensor}.\n" +
+            $"You can write only one of them:\n" +
+            $"{JoinsSensorsToString(_typesOfSensors)}")
+        {
+            TypesOfSensors = _typesOfSensors;
+            Sensor = _sensor;
+        }
+    }
 }
 
 
