@@ -8,7 +8,47 @@ namespace Sensors.BaseModels.Sensors
 {
     internal class PulseSensor : BaseSensor
     {
+        public PulseSensor() : base()
+        {
+            PulseList.Add(this);
+        }
+
+        private static List<PulseSensor> PulseList = new List<PulseSensor>();
+
+        private  int activateCount = 0;
+        public  int ActivateCount { get { return activateCount; } set { if (activateCount <= 2) activateCount++; else DeleteSensor(); } }
+
+        public const int ActivateDureable = 3;
         public override string Name { get; protected set; } = "Pulse Sensor";
+
+        public static bool DoesSensorsExists()
+        {
+            return PulseList.Count() > 0;
+        }
+
+        public static void DeleteSensor()
+        {
+            PulseSensor sensor = PulseList[0];
+            sensor.AgentAttached.DeleteSensor(sensor);
+            PulseList.RemoveAt(0);
+        }
+
+        private static void IncreaseCount()
+        {
+            foreach (PulseSensor pulse in PulseList)
+            {
+                pulse.ActivateCount++;
+            }
+        }
+        public static void SpecialPower()
+        {
+            IncreaseCount();
+        }
+        public static PulseSensor GetFirstSensor() 
+        {
+            return PulseList[0];
+        }
+
 
     }
 }

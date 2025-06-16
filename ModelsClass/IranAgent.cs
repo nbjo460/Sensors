@@ -119,5 +119,18 @@ namespace Sensors.BaseModels
         {
             return $"The Rank is: {Rank}. {MatchingSensorString(CountMatchingSensor())}";
         }
+        public void DeleteSensor (BaseSensor _sensor)
+        {
+            for(int i = 0; i < AttachedSensors.Count(); i++)
+            {
+                if (AttachedSensors[i].Equals(_sensor))
+                {
+                    AttachedSensors[i] = null;
+                    EnabledByLocation[i] = false;
+                    Console.WriteLine(_sensor + "Was DELETED");
+                    break;
+                }
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sensors.BaseModels.Sensors;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace Sensors.BaseModels
 
         protected virtual int RemainedToActivate { get; }
         public virtual string Name { get; protected set; }
-        public virtual IranAgent AgentAttached { private get; set; }
+        public virtual IranAgent AgentAttached { get; private set; }
         public virtual int Activate(IranAgent agent)
         {
             AgentAttached = agent;
@@ -24,7 +25,14 @@ namespace Sensors.BaseModels
             int remained = AgentAttached.CapacityOfSensors - count;
 
             AgentAttached.MatchingSensorString(count);
+            SpecialPower();
             return remained;
+        }
+        private void SpecialPower()
+        {
+            PulseSensor.SpecialPower();
+
+            
         }
         public override string ToString()
         {
