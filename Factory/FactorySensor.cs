@@ -11,6 +11,7 @@ namespace Sensors.Factory
 {
     internal static class FactorySensor
     {
+
         public static BaseSensor CreateSensor(string _type)
         {
 
@@ -39,5 +40,6 @@ namespace Sensors.Factory
                     throw new SensorDoesNotExist(BaseSensor.TypesOfSensors ,_type);
             }
         }
+
     }
 }
