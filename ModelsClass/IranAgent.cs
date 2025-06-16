@@ -56,7 +56,7 @@ namespace Sensors.BaseModels
                 case "Foot Soldier":
                     CapacityOfSensors = 2;
                     MaxCounterAttackByRank = 0;
-                    SensorsRemove = 0;
+                    SensorsRemove = -1;
                     break;
                 case "Squad Leader":
                     CapacityOfSensors = 4;
@@ -133,7 +133,7 @@ namespace Sensors.BaseModels
         {
             return $"The Rank is: {Rank}. {MatchingSensorString(CountMatchingSensor())}";
         }
-        public void DeleteSensor (BaseSensor _sensor)
+        public void DeleteSpecificlySensor (BaseSensor _sensor)
         {
             for(int i = 0; i < AttachedSensors.Count(); i++)
             {
@@ -146,12 +146,37 @@ namespace Sensors.BaseModels
                 }
             }
         }
+        private void DeleteSensorsByNum(int num)
+        {
+            int countDeleted = 0;
+            for (int i = 0; i < CapacityOfSensors; i++)
+            {
+                if (countDeleted == num) return;
+                if (AttachedSensors[i] != null)
+                {
+                    Console.WriteLine(AttachedSensors[i].Name + " Was DELETED");
+                    AttachedSensors[i] = null;
+                    EnabledByLocation[i] = false;
+                    countDeleted++;
+                }
+            }
+        }
         public void SpecialPower()
         {
-            if (counterAttack == 10)
+            counterTurns++;
+
+            if (counterTurns % 10 == 0)
             {
-                for (int i = 0; i < CapacityOfSensors; i++)
-                    AttachedSensors[i] = null;
+                DeleteSensorsByNum(CapacityOfSensors);
+            }
+            else if(SensorsRemove == -1)
+            {
+                return;
+            }
+            else if (counterTurns % MaxCounterAttackByRank == 0)
+            {
+                Console.WriteLine(MaxCounterAttackByRank);
+                DeleteSensorsByNum(SensorsRemove);
             }
         }
 
