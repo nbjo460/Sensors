@@ -20,7 +20,7 @@ namespace Sensors.BaseModels
         {
             AgentAttached = agent;
             bool attached = AgentAttached.AttachSensor(this);
-            SpecialPower(agent);
+            SpecialPower(agent, attached);
 
             int count = AgentAttached.CountMatchingSensor();
             int remained = AgentAttached.CapacityOfSensors - count;
@@ -28,11 +28,13 @@ namespace Sensors.BaseModels
             AgentAttached.MatchingSensorString(count);
             return remained;
         }
-        private void SpecialPower(IranAgent agent)
+        private void SpecialPower(IranAgent agent, bool _attached)
         {
             PulseSensor.SpecialPower();
             agent.SpecialPower();
-            
+            ThermalSensor.SpecialPower(agent, _attached);
+
+
         }
         public override string ToString()
         {
