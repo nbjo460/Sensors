@@ -15,7 +15,7 @@ namespace Sensors.Game
         public bool InvestigateWeakness(Player _investigator, IranAgent _underInvestigate)
         {
             int remained = 0;
-
+            _investigator.AddTurn();
             try
             {
                 Print.PrintSystemInvestigatorRequest("Guess a Type of Sensor to attach to him.");
@@ -23,10 +23,10 @@ namespace Sensors.Game
 
                 BaseSensor sensor = FactorySensor.CreateSensor(type);
                 remained = sensor.Activate(_underInvestigate);
+                _investigator.Score++;
 
-                int countOfSuccess = _underInvestigate.CountMatchingSensor();
-                string results = _underInvestigate.SuccssedMatchingString(countOfSuccess);
 
+                string results = _underInvestigate.SuccssedMatchingString(_underInvestigate.CountMatchingSensor());
                 Print.PrintUnderInvestigator(results);
 
                 return remained > 0;
