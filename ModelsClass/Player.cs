@@ -9,11 +9,15 @@ namespace Sensors.ModelsClass
 {
     internal class Player
     {
+        private string name = null;
+        private int rank = 0;
+        private int tries = 0;
+
         private int uniqueId = 0;
         public int Id { get; private set; }
-        public string Name { get; private set; }
-        public int Money { get; private set; } = 1000;
-        public int Rank { get; private set; } = 0;
+        public string Name { get { return name; }  set { if (name == null) name = value; } }
+        public int Money { get;  set; } = 1000;
+        public int Rank { get { return rank; } set { if (rank <= 10) rank++; } }
         public int Tries { get; private set; } = 0;
 
         public Player()

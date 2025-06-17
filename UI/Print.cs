@@ -57,11 +57,16 @@ namespace Sensors.UI
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
         }
-        public static  void PrintListString(string[] _str)
+        public static  void PrintListStringCentered(string[] _str)
         {
             foreach (string line in _str)
                 //Console.WriteLine(line);
                 PrintCentered(line);
+        }
+        public static void PrintListString(string[] _str)
+        {
+            foreach (string line in _str)
+                Console.WriteLine(line);
         }
         public static void PrintMenu(string[] _menu)
         {
@@ -69,5 +74,36 @@ namespace Sensors.UI
                 //Console.WriteLine(line);
                 PrintColorMenu(line);
         }
+        public static void PrintSystemInvestigatorRequest(string str)
+        {
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(str);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = ConsoleColor.Black;
+        }
+        public static void PrintUserInvestigator(string str)
+        {
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine(str);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = ConsoleColor.Black;
+        }
+        public static void PrintUnderInvestigator(string str)
+        {
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(str);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = ConsoleColor.Black;
+        }
+        static public void PrintException(string str)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(str);
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
     }
 }

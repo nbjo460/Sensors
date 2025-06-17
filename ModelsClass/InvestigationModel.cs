@@ -13,9 +13,12 @@ namespace Sensors.ModelsClass
         protected abstract List<Player> investigator { get; set; }
         protected abstract IranAgent under_investigation { get; set; }
 
+        public abstract bool DoesRemeinSensorsToExplode { get; set; }
         public abstract void AddInvestigator(Player _investigator);
         public abstract Player GetInvatigatorById(int id);
-        public abstract void Investigate(Player _Investigator);
+        public abstract void InvestigateSingleTurn(Player _Investigator);
+        public abstract void StartInvestigateTillEnd(Player _player);
+
 
     }
 }

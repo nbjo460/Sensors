@@ -18,8 +18,9 @@ namespace Sensors.BaseModels
         private static int id = 0;
         public int ID { get; private set; }
         public static string[] TypesOfRank { get; } = { "Foot Soldier", "Squad Leader", "Senior Commander", "Organaization" };
-        public int MatchingSensor { get; private set; } = 0;
+        public int MatchingSensor { get { return CountMatchingSensor(); } private set { } }
         public string Rank { get; private set; }
+
         public int CapacityOfSensors { get; private set; }
 
         public int SpecialPowerPossibility = 0;
@@ -142,7 +143,6 @@ namespace Sensors.BaseModels
             {
                 if (matching) count++;
             }
-            MatchingSensor = count;
             return count;
         }
         public string SuccssedMatchingString(int count)

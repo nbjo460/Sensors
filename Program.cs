@@ -1,4 +1,4 @@
-﻿using Sensors.Exception;
+﻿using Sensors.Game;
 
 namespace Sensors
 {
@@ -6,7 +6,7 @@ namespace Sensors
     {
         static void Main(string[] args)
         {
-            new Game().StartGame();
+            new Game.Game().StartGame();
         }
     }
 }

@@ -15,6 +15,7 @@ namespace Sensors.BaseModels
             "Magnetic Sensor", "Signal Sensor", "Light Sensor" };
 
         protected virtual int RemainedToActivate { get; }
+
         public virtual string Name { get; protected set; }
         public virtual IranAgent AgentAttached { get; private set; }
         public virtual int Activate(IranAgent agent)
@@ -29,7 +30,7 @@ namespace Sensors.BaseModels
             AgentAttached.SuccssedMatchingString(count);
 
 
-            AgentDal.InsertIranAgent(agent);
+            //AgentDal.InsertIranAgent(agent);
 
             return remained;
         }
