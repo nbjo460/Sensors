@@ -99,6 +99,8 @@
     <Compile Include="Exceptions\CustomException.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Factory\*.cs" />
+    <Compile Include="Game\Investigation.cs" />
+    <Compile Include="ModelsClass\InvestigationModel.cs" />
     <Compile Include="ModelsClass\IranAgent.cs" />
     <Compile Include="ModelsClass\Player.cs" />
     <Compile Include="ModelsClass\Sensors\PulseSensor.cs" />
