@@ -30,10 +30,13 @@ namespace Sensors.Dal
         }
         private static void CloseConnection()
         {
-            connection = new MySqlConnection(connectKey);
             try
             {
-                if (connection.State == System.Data.ConnectionState.Open || connection.State == System.Data.ConnectionState.Broken) connection.Close();
+                if (connection.State == System.Data.ConnectionState.Open || connection.State == System.Data.ConnectionState.Broken)
+                { 
+                    connection.Close();
+                    connection.Dispose();
+                }
             }
             catch (System.Exception ex)
             {
@@ -52,7 +55,7 @@ namespace Sensors.Dal
 
                 cmd.Parameters.AddWithValue("id", _agent.ID);
                 cmd.Parameters.AddWithValue("rank", _agent.Rank);
-                cmd.Parameters.AddWithValue("turns", _agent.counterTurns);
+                cmd.Parameters.AddWithValue("turns", _agent.CounterTurns);
                 cmd.Parameters.AddWithValue("exposed", !_agent.IsHiding);
 
                 cmd.ExecuteNonQuery();
@@ -69,7 +72,7 @@ namespace Sensors.Dal
         public static IranAgent GetIranAgent(int _id)
         {
             var connection = OpenConnection();
-            string query = "SELECT * FROM  `AGENT` WHERE ID = @id";
+            string query = "SELECT * FROM  `AGENTS` WHERE ID = @id";
             IranAgent agent = null;
             try
             {
@@ -98,7 +101,7 @@ namespace Sensors.Dal
         public static void DeleteIranAgent(IranAgent _agent)
         {
             var connection = OpenConnection();
-            string query = "DELETE FROM `AGENT` WHERE ID = @id";
+            string query = "DELETE FROM `AGENTS` WHERE ID = @id";
             try
             {
                 cmd = new MySqlCommand(query, connection);
@@ -117,14 +120,14 @@ namespace Sensors.Dal
         public static void UpdateIranAgent(IranAgent _agent)
         {
             var connection = OpenConnection();
-            string query = "UPDATE `AGENT` SET Rank = @rank, Turns = @turns, IsExposed = @exposed" +
+            string query = "UPDATE `AGENTS` SET Rank = @rank, Turns = @turns, IsExposed = @exposed" +
                 "WHERE ID = @id";
             try
             {
                 cmd = new MySqlCommand(query, connection);
                 cmd.Parameters.AddWithValue("id", _agent.ID);
                 cmd.Parameters.AddWithValue("rank", _agent.Rank);
-                cmd.Parameters.AddWithValue("turns", _agent.counterTurns);
+                cmd.Parameters.AddWithValue("turns", _agent.CounterTurns);
                 cmd.Parameters.AddWithValue("exposed", !_agent.IsHiding);
                 cmd.ExecuteNonQuery();
             }

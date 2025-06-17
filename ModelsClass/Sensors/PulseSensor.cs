@@ -13,7 +13,7 @@ namespace Sensors.BaseModels.Sensors
         public PulseSensor()
         {
             PulseList.Add(this);
-            id += 0;
+            id += 1;
             uniqueId = id;
         }
 

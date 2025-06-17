@@ -1,5 +1,6 @@
 ﻿using Sensors.BaseModels;
 using Sensors.Factory;
+using Sensors.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,53 +18,6 @@ namespace Sensors.Exception
             Menu();
         }
 
-        private void PrintMenu(string str)
-        {
-            Console.BackgroundColor = ConsoleColor.DarkRed;
-            Console.ForegroundColor = ConsoleColor.Yellow;
-
-            try
-            {
-                int screenWidth = Console.WindowWidth;
-
-                // פיצול לשורות במקרה של \n
-                string[] lines = str.Split('\n');
-
-                foreach (string line in lines)
-                {
-                    string trimmedLine = line.Trim();
-
-                    if (trimmedLine.Length <= screenWidth - 2) // מרווח בטיחות
-                    {
-                        int padding = Math.Max((screenWidth - trimmedLine.Length) / 2, 0);
-
-                        try
-                        {
-                            Console.SetCursorPosition(padding, Console.CursorTop);
-                            Console.WriteLine(trimmedLine);
-                        }
-                        catch
-                        {
-                            // אם SetCursorPosition לא עובד, השתמש ברווחים
-                            Console.WriteLine(new string(' ', padding) + trimmedLine);
-                        }
-                    }
-                    else
-                    {
-                        // טקסט ארוך מדי - הדפס בלי מרכוז
-                        Console.WriteLine(trimmedLine);
-                    }
-                }
-            }
-            catch
-            {
-                // אם יש בעיה כלשהי, פשוט הדפס רגיל
-                Console.WriteLine(str);
-            }
-
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.BackgroundColor = ConsoleColor.Black;
-        }
         private void ShowMenu()
         {
             string[] menu =
@@ -71,13 +25,11 @@ namespace Sensors.Exception
                 "Hello! Welcome to my game.\n",
                 "The game is about to find the Iran agent.\n",
                 $"\n\n" +
-                $"We want to tag a dangerous agent {agent}.\n" +
+                $"We want to tag some dangerous agents.\n" +
                 $"Please help us to catch him.\n" +
-                $"For this, you need to found the right Sensors that he can to carry, and attach them.\n" 
+                $"For this, you need to found the right Sensors that he can to carry, and attach them.\n"
             };
-            foreach (string line in menu)
-                //Console.WriteLine(line);
-            PrintMenu(line);
+            Print.PrintMenu(menu);
         }
         private void Menu()
         {
@@ -96,7 +48,7 @@ namespace Sensors.Exception
                     remained = sensor.Activate(agent);
 
                     int countOfSuccess = agent.CountMatchingSensor();
-                    string results = agent.MatchingSensorString(countOfSuccess);
+                    string results = agent.SuccssedMatchingString(countOfSuccess);
 
                     Console.WriteLine(results);
 

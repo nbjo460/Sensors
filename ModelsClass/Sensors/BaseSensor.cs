@@ -1,4 +1,5 @@
 ﻿using Sensors.BaseModels.Sensors;
+using Sensors.Dal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,11 @@ namespace Sensors.BaseModels
             int count = AgentAttached.CountMatchingSensor();
             int remained = AgentAttached.CapacityOfSensors - count;
 
-            AgentAttached.MatchingSensorString(count);
+            AgentAttached.SuccssedMatchingString(count);
+
+
+            AgentDal.InsertIranAgent(agent);
+
             return remained;
         }
         private void SpecialPower(IranAgent _agent, bool _attached)
