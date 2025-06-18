@@ -51,6 +51,31 @@ public class SensorDoesNotExist : Exception
         Sensor = _sensor;
     }
 }
+public class MixtureDoseNotMatch : Exception
+{
+    public static string[] Mixture;
+    private static string JoinsSensorsToString(string[] _typesOsSensors)
+    {
+        string joined = string.Join(", ", _typesOsSensors);
+        return joined + ".";
+    }
 
+    public MixtureDoseNotMatch(string[] _mixture) :
+        base($"You wrote the Mixture: {JoinsSensorsToString(_mixture)}.\n" +
+        $"Unfortunately, you got wrong.\n" +
+        $"You wiil get punished." )
+    {
+        Mixture = _mixture;
+    }
+}
+
+public class NotMixture : Exception
+{
+    public string sensorName;
+    public NotMixture(string _sensorName) : base($"The string include only one sensor.")
+    {
+        sensorName = _sensorName;
+    }
+}
 
 

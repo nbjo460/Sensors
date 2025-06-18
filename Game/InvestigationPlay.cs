@@ -13,20 +13,39 @@ namespace Sensors.Game
 {
     internal class InvestigationPlay : IInvestigationPlay
     {
+        public readonly IValidateMixture validateMixture = new Mixture();
+
         public bool InvestigateWeakness(Player _investigator, IranAgent _underInvestigate)
         {
             _investigator.AddTurn();
             
              string sensorType = GetTypeOfSensorFromUser();
-             BaseSensor sensor = CreateSensor(sensorType);
-             bool doesAttached = AttachSensor(sensorType, _underInvestigate, _investigator, sensor);
-             
-            BaseSensor.SpecialPowerExecute(_underInvestigate, doesAttached, sensor != null ? sensor.Name : "");
-            AgentTurn(_underInvestigate, _investigator, doesAttached);
-
+            bool doesAttached = false;
+            try
+            {
+                validateMixture.ValidateMixture(sensorType, CreateSensor, AttachSensor, _underInvestigate, _investigator);
+            }
+            catch (NotMixture)
+            {
+                BaseSensor sensor = CreateSensor(sensorType);
+                doesAttached = AttachSensor(sensorType, _underInvestigate, _investigator, sensor);
+                BaseSensor.SpecialPowerExecute(_underInvestigate, doesAttached, sensor != null ? sensor.Name : "");
+                AgentTurn(_underInvestigate, _investigator, doesAttached);
+            }
+            catch (MixtureDoseNotMatch ex)
+            {
+                for (int i = 0; i < 100; i++)
+                {
+                    _investigator.Score--;
+                }
+                Print.PrintException(ex.Message + $"\n and your's score now is: {_investigator.Score}");
+            }
+            finally
+            {
+                AgentTurn(_underInvestigate, _investigator, doesAttached);
+            }
             return RemainAnotherWeakness(_underInvestigate);
         }
-
         private string AskingATypeSensorFromUserWithoutTimer()
         {
             Print.PrintTurn("Your's turn.");
@@ -68,7 +87,7 @@ namespace Sensors.Game
         private async Task <string> AskingATypeSensorFromUserWithTimer()
         {
             Task<string> investigate = Task.Run(() => { return AskingATypeSensorFromUserWithoutTimer(); });
-            Task delayTask = Task.Delay(10000);
+            Task delayTask = Task.Delay(60000);
             Task completedTask = await(Task.WhenAny(investigate, delayTask));
             bool timeLeft = completedTask == delayTask;
             if (timeLeft) Print.PrintException("\nTime Left. You Waste 1 turn.\n");

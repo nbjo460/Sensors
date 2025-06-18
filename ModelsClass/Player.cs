@@ -18,7 +18,7 @@ namespace Sensors.ModelsClass
         public string Name { get { return name; }  set { if (name == null) name = value; } }
         public int Money { get;  set; } = 1000;
         public int Rank { get { return rank; } set { if (rank <= 10) rank++; } }
-        public int Score { get { return score; } set {score++; } }
+        public int Score { get { return score; } set { if ((value - score) > 0) score += 1; else if ((value - score) < 0) score -= 1; } }
 
         public int Tries { get; private set; } = 0;
 

@@ -27,6 +27,12 @@ namespace Sensors.BaseModels
 
             return attached;
         }
+        public virtual void DisActivate(IranAgent _agent)
+        {
+            AgentAttached = null;
+            _agent.DeleteSpecificlySensor(this);
+        }
+
         public static void SpecialPowerExecute(IranAgent _agent, bool _attached, string _name)
         {
             PulseSensor.SpecialPower();
