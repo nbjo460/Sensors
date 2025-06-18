@@ -1,4 +1,5 @@
 ﻿using Sensors.BaseModels;
+using Sensors.UI;
 using System;
 using System.Linq;
 using System.Xml.Linq;
@@ -191,7 +192,7 @@ namespace Sensors.BaseModels
                     if (CounterTurns % 10 == 0)
                     {
                         DeleteSensorsByNum(CapacityOfSensors);
-                        Console.WriteLine("Each 10 turns. Your's all Sensors delete!\nLike Now LOLLL");
+                        Print.PrintUnderInvestigator("Each 10 turns. Your's all Sensors delete!\nLike Now LOLLL");
                     }
                     else if (SensorsRemove == -1)
                     {
@@ -200,7 +201,7 @@ namespace Sensors.BaseModels
                     else if (CounterTurns % MaxCounterAttackByRank == 0)
                     {
                         DeleteSensorsByNum(SensorsRemove);
-                        Console.WriteLine($"Each {MaxCounterAttackByRank} turns. {SensorsRemove} Sensors are delete!\nLike Now LOLLL");
+                        Print.PrintUnderInvestigator($"Each {MaxCounterAttackByRank} turns. {SensorsRemove} Sensors are delete!\nLike Now LOLLL");
 
                     }
                 }

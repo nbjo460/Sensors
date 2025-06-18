@@ -1,4 +1,5 @@
-﻿using Sensors.BaseModels;
+﻿using Org.BouncyCastle.Security;
+using Sensors.BaseModels;
 using Sensors.Factory;
 using Sensors.ModelsClass;
 using Sensors.UI;
@@ -14,28 +15,54 @@ namespace Sensors.Game
     {
         public bool InvestigateWeakness(Player _investigator, IranAgent _underInvestigate)
         {
-            int remained = 0;
             _investigator.AddTurn();
+            
+             string sensorType = AskingATypeSensorFromUser();
+             BaseSensor sensor = CreateSensor(sensorType);
+             bool doesAttached = AttachSensor(sensorType, _underInvestigate, _investigator, sensor);
+             
+            BaseSensor.SpecialPowerExecute(_underInvestigate, doesAttached, sensor != null ? sensor.Name : "");
+            PrintResult(_underInvestigate, _investigator);
+
+            return RemainAnotherWeakness(_underInvestigate);
+        }
+
+        private string AskingATypeSensorFromUser()
+        {
+            Print.PrintSystemInvestigatorRequest("Guess a Type of Sensor to attach to him.");
+            return Console.ReadLine();
+        }
+        private BaseSensor CreateSensor(string _sensorName)
+        {
             try
             {
-                Print.PrintSystemInvestigatorRequest("Guess a Type of Sensor to attach to him.");
-                string type = Console.ReadLine();
-
-                BaseSensor sensor = FactorySensor.CreateSensor(type);
-                remained = sensor.Activate(_underInvestigate);
-                _investigator.Score++;
-
-
-                string results = _underInvestigate.SuccssedMatchingString(_underInvestigate.CountMatchingSensor());
-                Print.PrintUnderInvestigator(results);
-
-                return remained > 0;
+                BaseSensor sensor = FactorySensor.CreateSensor(_sensorName);
+                return sensor;
             }
             catch (SensorDoesNotExist ex)
             {
                 Print.PrintException(ex.Message);
-                return _underInvestigate.CapacityOfSensors - _underInvestigate.MatchingSensor > 0;
+                return  null;
             }
+        }
+        private bool AttachSensor(string _sensorName, IranAgent _underInvestigate, Player _investigator, BaseSensor _sensor)
+        {
+            bool doesAttached = false;
+            if (_sensor != null)
+            {
+                 doesAttached = _sensor.Activate(_underInvestigate);
+                _investigator.Score++;
+            }
+                return doesAttached;
+        }
+        private void PrintResult(IranAgent _underInvestigate, Player _investigator)
+        {
+            string results = _underInvestigate.SuccssedMatchingString(_underInvestigate.CountMatchingSensor());
+            Print.PrintUnderInvestigator(results);
+        }
+        private bool RemainAnotherWeakness(IranAgent _underInvestigate)
+        {
+            return _underInvestigate.CapacityOfSensors - _underInvestigate.MatchingSensor > 0;
         }
     }
 }

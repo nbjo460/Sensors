@@ -7,6 +7,5 @@ namespace Sensors.Game
     {
 
         bool InvestigateWeakness(Player Investigator, IranAgent UnderInvestigate);
-
     }
 }

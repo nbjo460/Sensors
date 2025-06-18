@@ -18,30 +18,23 @@ namespace Sensors.BaseModels
 
         public virtual string Name { get; protected set; }
         public virtual IranAgent AgentAttached { get; private set; }
-        public virtual int Activate(IranAgent agent)
+        public virtual bool Activate(IranAgent _agent)
         {
-            AgentAttached = agent;
-            bool attached = AgentAttached.AttachSensor(this);
-            SpecialPower(agent, attached);
-
-            int count = AgentAttached.CountMatchingSensor();
-            int remained = AgentAttached.CapacityOfSensors - count;
-
-            AgentAttached.SuccssedMatchingString(count);
-
+            AgentAttached = _agent;
+            bool attached = _agent.AttachSensor(this);
 
             //AgentDal.InsertIranAgent(agent);
 
-            return remained;
+            return attached;
         }
-        private void SpecialPower(IranAgent _agent, bool _attached)
+        public static void SpecialPowerExecute(IranAgent _agent, bool _attached, string _name)
         {
             PulseSensor.SpecialPower();
-            ThermalSensor.SpecialPower(_agent, _attached, Name);
-            MagneticSensor.SpecialPower(_agent, _attached, Name);
+            ThermalSensor.SpecialPower(_agent, _attached, _name);
+            MagneticSensor.SpecialPower(_agent, _attached, _name);
             MotionSensor.SpecialPower();
-            SignalSensor.SpecialPower(_agent, _attached, Name);
-            LightSensor.SpecialPower(_agent, _attached, Name);
+            SignalSensor.SpecialPower(_agent, _attached, _name);
+            LightSensor.SpecialPower(_agent, _attached, _name);
 
             _agent.SpecialPower(_attached);
 

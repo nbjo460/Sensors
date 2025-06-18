@@ -11,8 +11,10 @@ namespace Sensors.BaseModels.Sensors
         public override string Name { get; protected set; } = "Thermal Sensor";
         public static void SpecialPower(IranAgent agent, bool _attached, string _name)
         {
-            if(_name == "Thermal Sensor")
-            Console.WriteLine(_attached ? agent.RequierdTypesOfSensors[new Random().Next(0, agent.CapacityOfSensors)] :"Can't Revive you.");
+            if (_name == "Thermal Sensor" && _attached)
+            {
+                Console.WriteLine(agent.RequierdTypesOfSensors[new Random().Next(0, agent.CapacityOfSensors)]);
+            }
         }
     }
 }
