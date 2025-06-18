@@ -104,6 +104,14 @@ namespace Sensors.UI
             Console.WriteLine(str);
             Console.ForegroundColor = ConsoleColor.White;
         }
+        static public void PrintTurn(string str)
+        {
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine(str);
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
 
     }
 }

@@ -29,6 +29,7 @@ namespace Sensors.Game
 
         private string AskingATypeSensorFromUser()
         {
+            Print.PrintTurn("Your's turn.");
             Print.PrintSystemInvestigatorRequest("Guess a Type of Sensor to attach to him.");
             return Console.ReadLine();
         }
@@ -67,13 +68,12 @@ namespace Sensors.Game
         private async Task <string> AskingATypeSensorFromUserLimitByTimer()
         {
             Task<string> investigate = Task.Run(() => { return AskingATypeSensorFromUser(); });
-            Task delayTask = Task.Delay(5000);
+            Task delayTask = Task.Delay(10000);
             Task completedTask = await(Task.WhenAny(investigate, delayTask));
             bool timeLeft = completedTask == delayTask;
             if (timeLeft) Print.PrintException("\nTime Left. You Waste 1 turn.\n");
             return !timeLeft ? investigate.Result : "";
         }
-
         public async Task<bool> InvestigateWeaknessByTimer(Player _investigator, IranAgent _underInvestigate)
         {
             _investigator.AddTurn();

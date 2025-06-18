@@ -158,12 +158,17 @@ namespace Sensors.BaseModels
         {
             for(int i = 0; i < AttachedSensors.Count(); i++)
             {
-                if (AttachedSensors[i].Equals(_sensor))
+                if (_sensor == null && AttachedSensors[i] == null) return;
+                else if (AttachedSensors[i] == null) continue;
+                else if (_sensor != null && AttachedSensors[i] != null)
                 {
-                    AttachedSensors[i] = null;
-                    EnabledByLocation[i] = false;
-                    Console.WriteLine(_sensor.Name + " Was DELETED");
-                    break;
+                    if (AttachedSensors[i].Equals(_sensor))
+                    {
+                        AttachedSensors[i] = null;
+                        EnabledByLocation[i] = false;
+                        Console.WriteLine(_sensor.Name + " Was DELETED");
+                        break;
+                    }
                 }
             }
         }
