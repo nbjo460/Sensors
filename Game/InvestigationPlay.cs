@@ -59,6 +59,7 @@ namespace Sensors.Game
         private void PrintResult(IranAgent _underInvestigate, Player _investigator)
         {
             string results = _underInvestigate.SuccssedMatchingString(_underInvestigate.CountMatchingSensor());
+            Print.PrintTurn("Is Iran agent Turn");
             Print.PrintUnderInvestigator(results);
         }
         private bool RemainAnotherWeakness(IranAgent _underInvestigate)
