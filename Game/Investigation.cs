@@ -52,5 +52,6 @@ namespace Sensors.Game
                 InvestigateSingleTurn(_player);
             }
         }
+
     }
 }

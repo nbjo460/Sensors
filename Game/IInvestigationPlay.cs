@@ -1,5 +1,6 @@
 ﻿using Sensors.BaseModels;
 using Sensors.ModelsClass;
+using System.Threading.Tasks;
 
 namespace Sensors.Game
 {
@@ -7,5 +8,6 @@ namespace Sensors.Game
     {
 
         bool InvestigateWeakness(Player Investigator, IranAgent UnderInvestigate);
+
     }
 }

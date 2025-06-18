@@ -13,22 +13,42 @@ namespace Sensors.Game
 {
     internal class InvestigationPlay : IInvestigationPlay
     {
+        public readonly IValidateMixture validateMixture = new Mixture();
+
         public bool InvestigateWeakness(Player _investigator, IranAgent _underInvestigate)
         {
             _investigator.AddTurn();
             
-             string sensorType = AskingATypeSensorFromUser();
-             BaseSensor sensor = CreateSensor(sensorType);
-             bool doesAttached = AttachSensor(sensorType, _underInvestigate, _investigator, sensor);
-             
-            BaseSensor.SpecialPowerExecute(_underInvestigate, doesAttached, sensor != null ? sensor.Name : "");
-            PrintResult(_underInvestigate, _investigator);
-
+             string sensorType = GetTypeOfSensorFromUser();
+            bool doesAttached = false;
+            try
+            {
+                validateMixture.ValidateMixture(sensorType, CreateSensor, AttachSensor, _underInvestigate, _investigator);
+            }
+            catch (NotMixture)
+            {
+                BaseSensor sensor = CreateSensor(sensorType);
+                doesAttached = AttachSensor(sensorType, _underInvestigate, _investigator, sensor);
+                BaseSensor.SpecialPowerExecute(_underInvestigate, doesAttached, sensor != null ? sensor.Name : "");
+                AgentTurn(_underInvestigate, _investigator, doesAttached);
+            }
+            catch (MixtureDoseNotMatch ex)
+            {
+                for (int i = 0; i < 100; i++)
+                {
+                    _investigator.Score--;
+                }
+                Print.PrintException(ex.Message + $"\n and your's score now is: {_investigator.Score}");
+            }
+            finally
+            {
+                AgentTurn(_underInvestigate, _investigator, doesAttached);
+            }
             return RemainAnotherWeakness(_underInvestigate);
         }
-
-        private string AskingATypeSensorFromUser()
+        private string AskingATypeSensorFromUserWithoutTimer()
         {
+            Print.PrintTurn("Your's turn.");
             Print.PrintSystemInvestigatorRequest("Guess a Type of Sensor to attach to him.");
             return Console.ReadLine();
         }
@@ -55,14 +75,27 @@ namespace Sensors.Game
             }
                 return doesAttached;
         }
-        private void PrintResult(IranAgent _underInvestigate, Player _investigator)
+        private void AgentTurn(IranAgent _underInvestigate, Player _investigator, bool _attached)
         {
-            string results = _underInvestigate.SuccssedMatchingString(_underInvestigate.CountMatchingSensor());
-            Print.PrintUnderInvestigator(results);
+            Print.PrintTurn("Is Iran agent Turn");
+            _underInvestigate.AgentTurn(_attached);
         }
         private bool RemainAnotherWeakness(IranAgent _underInvestigate)
         {
             return _underInvestigate.CapacityOfSensors - _underInvestigate.MatchingSensor > 0;
+        }
+        private async Task <string> AskingATypeSensorFromUserWithTimer()
+        {
+            Task<string> investigate = Task.Run(() => { return AskingATypeSensorFromUserWithoutTimer(); });
+            Task delayTask = Task.Delay(60000);
+            Task completedTask = await(Task.WhenAny(investigate, delayTask));
+            bool timeLeft = completedTask == delayTask;
+            if (timeLeft) Print.PrintException("\nTime Left. You Waste 1 turn.\n");
+            return !timeLeft ? investigate.Result : "";
+        }
+        public string GetTypeOfSensorFromUser()
+        {
+            return AskingATypeSensorFromUserWithTimer().GetAwaiter().GetResult();
         }
     }
 }

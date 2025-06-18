@@ -158,12 +158,17 @@ namespace Sensors.BaseModels
         {
             for(int i = 0; i < AttachedSensors.Count(); i++)
             {
-                if (AttachedSensors[i].Equals(_sensor))
+                if (_sensor == null && AttachedSensors[i] == null) return;
+                else if (AttachedSensors[i] == null) continue;
+                else if (_sensor != null && AttachedSensors[i] != null)
                 {
-                    AttachedSensors[i] = null;
-                    EnabledByLocation[i] = false;
-                    Console.WriteLine(_sensor.Name + " Was DELETED");
-                    break;
+                    if (AttachedSensors[i].Equals(_sensor))
+                    {
+                        AttachedSensors[i] = null;
+                        EnabledByLocation[i] = false;
+                        Console.WriteLine(_sensor.Name + " Was DELETED");
+                        break;
+                    }
                 }
             }
         }
@@ -184,6 +189,7 @@ namespace Sensors.BaseModels
         }
         public void SpecialPower(bool _attached)
         {
+            ChangeWeakness();
             if (!_attached)
             {
                 CounterTurns++;
@@ -211,6 +217,24 @@ namespace Sensors.BaseModels
                         SpecialPowerPossibility++;
                 }
             }
+        }
+        public void AgentTurn(bool _attached)
+        {
+            string results = SuccssedMatchingString(CountMatchingSensor());
+            Print.PrintUnderInvestigator(results);
+            SpecialPower(_attached);
+        }
+        private void ChangeWeakness()
+        {
+            Random rnd = new Random();
+            if (CounterTurns % 5 == 0)
+            {
+                int indexWeakness = rnd.Next(0, CapacityOfSensors);
+                int newWeakness = rnd.Next(0, BaseSensor.TypesOfSensors.Length);
+                RequierdTypesOfSensors[indexWeakness] = BaseSensor.TypesOfSensors[newWeakness];
+                Print.PrintUnderInvestigator("I changed my weakness.");
+            }
+
         }
 
 
