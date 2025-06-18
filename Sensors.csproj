@@ -97,17 +97,24 @@
   <ItemGroup>
     <Compile Include="Dal\AgentDal.cs" />
     <Compile Include="Exceptions\CustomException.cs" />
-    <Compile Include="Game.cs" />
+    <Compile Include="Game\Game.cs" />
     <Compile Include="Factory\*.cs" />
+    <Compile Include="Game\IInvestigationPlay.cs" />
+    <Compile Include="Game\Investigation.cs" />
+    <Compile Include="Game\InvestigationPlay.cs" />
+    <Compile Include="ModelsClass\InvestigationModel.cs" />
     <Compile Include="ModelsClass\IranAgent.cs" />
+    <Compile Include="ModelsClass\Player.cs" />
     <Compile Include="ModelsClass\Sensors\PulseSensor.cs" />
     <Compile Include="ModelsClass\Sensors\*.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\Print.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

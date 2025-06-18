@@ -1,4 +1,5 @@
 ﻿using Sensors.BaseModels;
+using Sensors.UI;
 using System;
 using System.Linq;
 using System.Xml.Linq;
@@ -7,15 +8,24 @@ namespace Sensors.BaseModels
 {
     internal class IranAgent
     {
+
+
+        //private readonly IAgentSensorAttached _agentRepository;
+        //private readonly IAgentRepository _agentRepository;
+        //private readonly IAgentRepository _agentRepository;
+
+
+
         private static int id = 0;
         public int ID { get; private set; }
         public static string[] TypesOfRank { get; } = { "Foot Soldier", "Squad Leader", "Senior Commander", "Organaization" };
-        public int MatchingSensor { get; private set; } = 0;
+        public int MatchingSensor { get { return CountMatchingSensor(); } private set { } }
         public string Rank { get; private set; }
+
         public int CapacityOfSensors { get; private set; }
 
         public int SpecialPowerPossibility = 0;
-        public int counterTurns { get; private set; } = 0;
+        public int CounterTurns { get; private set; } = 0;
         private int MaxCounterAttackByRank = 0;
         private int SensorsRemove = 0;
         public const int MaxCounterAttack = 10;
@@ -55,7 +65,7 @@ namespace Sensors.BaseModels
             ID = _id;
             SetCapcityAndRank(_rank);
             InitialyzeParameters();
-            counterTurns = _turns;
+            CounterTurns = _turns;
         }
 
         private void SetCapcityAndRank(string _rank)
@@ -134,16 +144,15 @@ namespace Sensors.BaseModels
             {
                 if (matching) count++;
             }
-            MatchingSensor = count;
             return count;
         }
-        public string MatchingSensorString(int count)
+        public string SuccssedMatchingString(int count)
         {
             return $"You succssed {count} / {CapacityOfSensors}";
         }
         public override string ToString()
         {
-            return $"The Rank is: {Rank}. {MatchingSensorString(CountMatchingSensor())}";
+            return $"The Rank is: {Rank}. {SuccssedMatchingString(CountMatchingSensor())}";
         }
         public void DeleteSpecificlySensor (BaseSensor _sensor)
         {
@@ -177,28 +186,28 @@ namespace Sensors.BaseModels
         {
             if (!_attached)
             {
-                counterTurns++;
+                CounterTurns++;
                 if (SpecialPowerPossibility >= 0)
                 {
-                    if (counterTurns % 10 == 0)
+                    if (CounterTurns % 10 == 0)
                     {
                         DeleteSensorsByNum(CapacityOfSensors);
-                        Console.WriteLine("Each 10 turns. Your's all Sensors delete!\nLike Now LOLLL");
+                        Print.PrintUnderInvestigator("Each 10 turns. Your's all Sensors delete!\nLike Now LOLLL");
                     }
                     else if (SensorsRemove == -1)
                     {
                         return;
                     }
-                    else if (counterTurns % MaxCounterAttackByRank == 0)
+                    else if (CounterTurns % MaxCounterAttackByRank == 0)
                     {
                         DeleteSensorsByNum(SensorsRemove);
-                        Console.WriteLine($"Each {MaxCounterAttackByRank} turns. {SensorsRemove} Sensors are delete!\nLike Now LOLLL");
+                        Print.PrintUnderInvestigator($"Each {MaxCounterAttackByRank} turns. {SensorsRemove} Sensors are delete!\nLike Now LOLLL");
 
                     }
                 }
                 else
                 {
-                    if (counterTurns % 10 == 0 || counterTurns % MaxCounterAttackByRank == 0)
+                    if (CounterTurns % 10 == 0 || CounterTurns % MaxCounterAttackByRank == 0)
                         SpecialPowerPossibility++;
                 }
             }

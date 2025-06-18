@@ -15,7 +15,7 @@ namespace Sensors.BaseModels.Sensors
         public MotionSensor()
         {
             MotionList.Add(this);
-            id += 0;
+            id ++;
             uniqueId = id;
         }
 

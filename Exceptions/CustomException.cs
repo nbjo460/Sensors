@@ -51,15 +51,6 @@ public class SensorDoesNotExist : Exception
         Sensor = _sensor;
     }
 }
-static class PrintException
-{
-    static public void Print(string str)
-    {
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine(str);
-        Console.ForegroundColor = ConsoleColor.White;
-    }
-}
 
 
 
