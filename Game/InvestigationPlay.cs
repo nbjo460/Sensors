@@ -17,17 +17,17 @@ namespace Sensors.Game
         {
             _investigator.AddTurn();
             
-             string sensorType = AskingATypeSensorFromUser();
+             string sensorType = GetTypeOfSensorFromUser();
              BaseSensor sensor = CreateSensor(sensorType);
              bool doesAttached = AttachSensor(sensorType, _underInvestigate, _investigator, sensor);
              
             BaseSensor.SpecialPowerExecute(_underInvestigate, doesAttached, sensor != null ? sensor.Name : "");
-            PrintResult(_underInvestigate, _investigator);
+            AgentTurn(_underInvestigate, _investigator, doesAttached);
 
             return RemainAnotherWeakness(_underInvestigate);
         }
 
-        private string AskingATypeSensorFromUser()
+        private string AskingATypeSensorFromUserWithoutTimer()
         {
             Print.PrintTurn("Your's turn.");
             Print.PrintSystemInvestigatorRequest("Guess a Type of Sensor to attach to him.");
@@ -56,37 +56,27 @@ namespace Sensors.Game
             }
                 return doesAttached;
         }
-        private void PrintResult(IranAgent _underInvestigate, Player _investigator)
+        private void AgentTurn(IranAgent _underInvestigate, Player _investigator, bool _attached)
         {
-            string results = _underInvestigate.SuccssedMatchingString(_underInvestigate.CountMatchingSensor());
             Print.PrintTurn("Is Iran agent Turn");
-            Print.PrintUnderInvestigator(results);
+            _underInvestigate.AgentTurn(_attached);
         }
         private bool RemainAnotherWeakness(IranAgent _underInvestigate)
         {
             return _underInvestigate.CapacityOfSensors - _underInvestigate.MatchingSensor > 0;
         }
-        private async Task <string> AskingATypeSensorFromUserLimitByTimer()
+        private async Task <string> AskingATypeSensorFromUserWithTimer()
         {
-            Task<string> investigate = Task.Run(() => { return AskingATypeSensorFromUser(); });
+            Task<string> investigate = Task.Run(() => { return AskingATypeSensorFromUserWithoutTimer(); });
             Task delayTask = Task.Delay(10000);
             Task completedTask = await(Task.WhenAny(investigate, delayTask));
             bool timeLeft = completedTask == delayTask;
             if (timeLeft) Print.PrintException("\nTime Left. You Waste 1 turn.\n");
             return !timeLeft ? investigate.Result : "";
         }
-        public async Task<bool> InvestigateWeaknessByTimer(Player _investigator, IranAgent _underInvestigate)
+        public string GetTypeOfSensorFromUser()
         {
-            _investigator.AddTurn();
-
-            string sensorType = await AskingATypeSensorFromUserLimitByTimer();
-            BaseSensor sensor = CreateSensor(sensorType);
-            bool doesAttached = AttachSensor(sensorType, _underInvestigate, _investigator, sensor);
-
-            BaseSensor.SpecialPowerExecute(_underInvestigate, doesAttached, sensor != null ? sensor.Name : "");
-            PrintResult(_underInvestigate, _investigator);
-
-            return RemainAnotherWeakness(_underInvestigate);
+            return AskingATypeSensorFromUserWithTimer().GetAwaiter().GetResult();
         }
     }
 }

@@ -35,9 +35,6 @@ namespace Sensors.BaseModels
             MotionSensor.SpecialPower();
             SignalSensor.SpecialPower(_agent, _attached, _name);
             LightSensor.SpecialPower(_agent, _attached, _name);
-
-            _agent.SpecialPower(_attached);
-
         }
         public override string ToString()
         {

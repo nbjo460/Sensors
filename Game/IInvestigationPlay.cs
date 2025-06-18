@@ -7,7 +7,7 @@ namespace Sensors.Game
     internal interface IInvestigationPlay
     {
 
-        Task<bool> InvestigateWeaknessByTimer(Player Investigator, IranAgent UnderInvestigate);
         bool InvestigateWeakness(Player Investigator, IranAgent UnderInvestigate);
+
     }
 }
