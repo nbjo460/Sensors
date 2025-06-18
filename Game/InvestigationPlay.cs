@@ -64,5 +64,28 @@ namespace Sensors.Game
         {
             return _underInvestigate.CapacityOfSensors - _underInvestigate.MatchingSensor > 0;
         }
+        private async Task <string> AskingATypeSensorFromUserLimitByTimer()
+        {
+            Task<string> investigate = Task.Run(() => { return AskingATypeSensorFromUser(); });
+            Task delayTask = Task.Delay(5000);
+            Task completedTask = await(Task.WhenAny(investigate, delayTask));
+            bool timeLeft = completedTask == delayTask;
+            if (timeLeft) Print.PrintException("\nTime Left. You Waste 1 turn.\n");
+            return !timeLeft ? investigate.Result : "";
+        }
+
+        public async Task<bool> InvestigateWeaknessByTimer(Player _investigator, IranAgent _underInvestigate)
+        {
+            _investigator.AddTurn();
+
+            string sensorType = await AskingATypeSensorFromUserLimitByTimer();
+            BaseSensor sensor = CreateSensor(sensorType);
+            bool doesAttached = AttachSensor(sensorType, _underInvestigate, _investigator, sensor);
+
+            BaseSensor.SpecialPowerExecute(_underInvestigate, doesAttached, sensor != null ? sensor.Name : "");
+            PrintResult(_underInvestigate, _investigator);
+
+            return RemainAnotherWeakness(_underInvestigate);
+        }
     }
 }

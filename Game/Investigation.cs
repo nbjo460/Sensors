@@ -43,7 +43,7 @@ namespace Sensors.Game
 
         public override void InvestigateSingleTurn(Player _investigator)
         {
-            DoesRemeinSensorsToExplode = Play.InvestigateWeakness(_investigator, under_investigation);
+            DoesRemeinSensorsToExplode = Play.InvestigateWeaknessByTimer(_investigator, under_investigation).GetAwaiter().GetResult();
         }
         public override void StartInvestigateTillEnd(Player _player)
         {
