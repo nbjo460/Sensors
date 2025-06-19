@@ -105,7 +105,9 @@
     <Compile Include="Game\InvestigationPlay.cs" />
     <Compile Include="Game\ValidateMixture.cs" />
     <Compile Include="ModelsClass\AgentSensorAttached.cs" />
+    <Compile Include="ModelsClass\AgentTurn.cs" />
     <Compile Include="ModelsClass\IAgentSensorAttached.cs" />
+    <Compile Include="ModelsClass\IAgentTurn.cs" />
     <Compile Include="ModelsClass\InvestigationModel.cs" />
     <Compile Include="ModelsClass\IranAgent.cs" />
     <Compile Include="ModelsClass\Player.cs" />

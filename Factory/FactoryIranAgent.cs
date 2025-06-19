@@ -14,9 +14,9 @@ namespace Sensors.Factory
             string rank = IranAgent.TypesOfRank[new Random().Next(0, IranAgent.TypesOfRank.Length)];
             //rank = IranAgent.TypesOfRank[3];
             IranAgent agent = new IranAgent(rank);
-            string[] TypesOfSensors = new string[agent.attachedSensor.CapacityOfSensors];
+            string[] TypesOfSensors = new string[agent.AttachedSensor.CapacityOfSensors];
             Random rnd = new Random();
-            for (int i = 0; i < agent.attachedSensor.CapacityOfSensors; i++)
+            for (int i = 0; i < agent.AttachedSensor.CapacityOfSensors; i++)
             {
                 int sensorType = rnd.Next(0, BaseSensor.TypesOfSensors.Length);
                 //sensorType = 4;
@@ -24,7 +24,7 @@ namespace Sensors.Factory
                 //Console.WriteLine(TypesOfSensors[i]);
             }
 
-            agent.attachedSensor.RequierdTypesOfSensors = TypesOfSensors;
+            agent.AttachedSensor.RequierdTypesOfSensors = TypesOfSensors;
             return agent;
         }
     }

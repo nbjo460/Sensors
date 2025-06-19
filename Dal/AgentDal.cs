@@ -55,7 +55,7 @@ namespace Sensors.Dal
 
                 cmd.Parameters.AddWithValue("id", _agent.ID);
                 cmd.Parameters.AddWithValue("rank", _agent.Rank);
-                cmd.Parameters.AddWithValue("turns", _agent.CounterTurns);
+                cmd.Parameters.AddWithValue("turns", _agent.AgentTurn.CounterTurns);
                 cmd.Parameters.AddWithValue("exposed", !_agent.IsHiding);
 
                 cmd.ExecuteNonQuery();
@@ -127,7 +127,7 @@ namespace Sensors.Dal
                 cmd = new MySqlCommand(query, connection);
                 cmd.Parameters.AddWithValue("id", _agent.ID);
                 cmd.Parameters.AddWithValue("rank", _agent.Rank);
-                cmd.Parameters.AddWithValue("turns", _agent.CounterTurns);
+                cmd.Parameters.AddWithValue("turns", _agent.AgentTurn.CounterTurns);
                 cmd.Parameters.AddWithValue("exposed", !_agent.IsHiding);
                 cmd.ExecuteNonQuery();
             }

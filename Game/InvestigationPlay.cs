@@ -24,6 +24,8 @@ namespace Sensors.Game
             try
             {
                 validateMixture.ValidateMixture(sensorType, CreateSensor, AttachSensor, _underInvestigate, _investigator);
+                AgentTurn(_underInvestigate, _investigator, doesAttached);
+
             }
             catch (NotMixture)
             {
@@ -31,6 +33,7 @@ namespace Sensors.Game
                 doesAttached = AttachSensor(sensorType, _underInvestigate, _investigator, sensor);
                 BaseSensor.SpecialPowerExecute(_underInvestigate, doesAttached, sensor != null ? sensor.Name : "");
                 AgentTurn(_underInvestigate, _investigator, doesAttached);
+
             }
             catch (MixtureDoseNotMatch ex)
             {
@@ -40,10 +43,8 @@ namespace Sensors.Game
                 }
                 Print.PrintException(ex.Message + $"\n and your's score now is: {_investigator.Score}");
             }
-            finally
-            {
-                AgentTurn(_underInvestigate, _investigator, doesAttached);
-            }
+            
+            
             return RemainAnotherWeakness(_underInvestigate);
         }
         private string AskingATypeSensorFromUserWithoutTimer()
@@ -78,11 +79,11 @@ namespace Sensors.Game
         private void AgentTurn(IranAgent _underInvestigate, Player _investigator, bool _attached)
         {
             Print.PrintTurn("Is Iran agent Turn");
-            _underInvestigate.AgentTurn(_attached);
+            _underInvestigate.AgentTurn.PlaysTurn(_attached);
         }
         private bool RemainAnotherWeakness(IranAgent _underInvestigate)
         {
-            return _underInvestigate.attachedSensor.CapacityOfSensors - _underInvestigate.attachedSensor.CountMatchingSensor() > 0;
+            return _underInvestigate.AttachedSensor.CapacityOfSensors - _underInvestigate.AttachedSensor.CountMatchingSensor() > 0;
         }
         private async Task <string> AskingATypeSensorFromUserWithTimer()
         {

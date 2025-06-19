@@ -21,7 +21,7 @@ namespace Sensors.BaseModels
         public virtual bool Activate(IranAgent _agent)
         {
             AgentAttached = _agent;
-            bool attached = _agent.attachedSensor.AttachSensor(this);
+            bool attached = _agent.AttachedSensor.AttachSensor(this);
 
             AgentDal.InsertIranAgent(_agent);
 
@@ -30,7 +30,7 @@ namespace Sensors.BaseModels
         public virtual void DisActivate(IranAgent _agent)
         {
             AgentAttached = null;
-            _agent.attachedSensor.DeleteSpecificlySensor(this);
+            _agent.AttachedSensor.DeleteSpecificlySensor(this);
         }
 
         public static void SpecialPowerExecute(IranAgent _agent, bool _attached, string _name)

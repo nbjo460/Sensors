@@ -13,7 +13,7 @@ namespace Sensors.BaseModels.Sensors
         {
             if (_name == "Thermal Sensor" && _attached)
             {
-                Console.WriteLine(agent.attachedSensor.RequierdTypesOfSensors[new Random().Next(0, agent.attachedSensor.CapacityOfSensors)]);
+                Console.WriteLine(agent.AttachedSensor.RequierdTypesOfSensors[new Random().Next(0, agent.AttachedSensor.CapacityOfSensors)]);
             }
         }
     }
