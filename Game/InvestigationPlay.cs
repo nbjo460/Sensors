@@ -82,7 +82,7 @@ namespace Sensors.Game
         }
         private bool RemainAnotherWeakness(IranAgent _underInvestigate)
         {
-            return _underInvestigate.CapacityOfSensors - _underInvestigate.MatchingSensor > 0;
+            return _underInvestigate.attachedSensor.CapacityOfSensors - _underInvestigate.attachedSensor.CountMatchingSensor() > 0;
         }
         private async Task <string> AskingATypeSensorFromUserWithTimer()
         {

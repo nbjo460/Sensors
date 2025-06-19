@@ -22,6 +22,7 @@ namespace Sensors.Game
 
         public Investigation(IranAgent _iran, Player _investigator)
         {
+            Puzzle();
             investigator.Add(_investigator);
             under_investigation = _iran;
 
@@ -30,17 +31,24 @@ namespace Sensors.Game
             Print.PrintSystemInvestigatorRequest("Choose one of them:");
             Print.PrintSystemInvestigatorRequest(string.Join(", ", BaseSensor.TypesOfSensors));
         }
-
+        private void Puzzle()
+        {
+            bool wrongAnswer = true;
+            Print.PrintSystemInvestigatorRequest("How much is: 2+2?");
+            while (wrongAnswer)
+            {
+                string answer = Console.ReadLine();
+                if (answer == "4") wrongAnswer = false;
+            }
+        } 
         public override void AddInvestigator(Player _investigator)
         {
             investigator.Add(_investigator);
         }
-
         public override Player GetInvatigatorById(int id)
         {
             throw new NotImplementedException();
         }
-
         public override void InvestigateSingleTurn(Player _investigator)
         {
             DoesRemeinSensorsToExplode = Play.InvestigateWeakness(_investigator, under_investigation);

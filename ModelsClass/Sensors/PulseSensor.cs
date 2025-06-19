@@ -33,7 +33,7 @@ namespace Sensors.BaseModels.Sensors
         public static void DeleteSensor()
         {
             PulseSensor sensor = PulseList[0];
-            sensor.AgentAttached.DeleteSpecificlySensor(sensor);
+            sensor.AgentAttached.attachedSensor.DeleteSpecificlySensor(sensor);
             PulseList.RemoveAt(0);
         }
 

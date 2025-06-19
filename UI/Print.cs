@@ -81,6 +81,7 @@ namespace Sensors.UI
             Console.WriteLine(str);
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
+            Console.WriteLine("");
         }
         public static void PrintUserInvestigator(string str)
         {
@@ -88,7 +89,8 @@ namespace Sensors.UI
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine(str);
             Console.ForegroundColor = ConsoleColor.White;
-            Console.BackgroundColor = ConsoleColor.Black;
+            Console.BackgroundColor = ConsoleColor.Black; 
+            Console.WriteLine("");
         }
         public static void PrintUnderInvestigator(string str)
         {
@@ -97,12 +99,14 @@ namespace Sensors.UI
             Console.WriteLine(str);
             Console.ForegroundColor = ConsoleColor.Black;
             Console.BackgroundColor = ConsoleColor.White;
+            Console.WriteLine("");
         }
         static public void PrintException(string str)
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(str);
             Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("");
         }
         static public void PrintTurn(string str)
         {
@@ -110,6 +114,7 @@ namespace Sensors.UI
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine(str);
             Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("");
         }
 
 

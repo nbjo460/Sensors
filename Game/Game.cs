@@ -35,7 +35,7 @@ namespace Sensors.Game
             };
             Print.PrintMenu(menu);
         }
-         
+        
         private void CreateInvistigate() 
         {
             Player moshe = new Player();

@@ -34,7 +34,7 @@ namespace Sensors.BaseModels.Sensors
         public static void DeleteSensor()
         {
             MotionSensor sensor = MotionList[0];
-            sensor.AgentAttached.DeleteSpecificlySensor(sensor);
+            sensor.AgentAttached.attachedSensor.DeleteSpecificlySensor(sensor);
             MotionList.RemoveAt(0);
         }
 

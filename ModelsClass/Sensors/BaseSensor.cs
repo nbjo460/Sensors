@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Sensors.BaseModels
 {
-    internal abstract class BaseSensor
+    public abstract class BaseSensor
     {
         public static string[] TypesOfSensors { get; } =
             {"Audio Sensor", "Thermal Sensor", "Pulse Sensor", "Motion Sensor",
@@ -21,16 +21,16 @@ namespace Sensors.BaseModels
         public virtual bool Activate(IranAgent _agent)
         {
             AgentAttached = _agent;
-            bool attached = _agent.AttachSensor(this);
+            bool attached = _agent.attachedSensor.AttachSensor(this);
 
-            //AgentDal.InsertIranAgent(agent);
+            AgentDal.InsertIranAgent(_agent);
 
             return attached;
         }
         public virtual void DisActivate(IranAgent _agent)
         {
             AgentAttached = null;
-            _agent.DeleteSpecificlySensor(this);
+            _agent.attachedSensor.DeleteSpecificlySensor(this);
         }
 
         public static void SpecialPowerExecute(IranAgent _agent, bool _attached, string _name)
